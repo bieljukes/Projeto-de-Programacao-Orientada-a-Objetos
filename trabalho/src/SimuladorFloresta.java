@@ -4,7 +4,7 @@ import java.util.Random;
 class EcossistemaFloresta {
     public static void main(String[] args) {
         Floresta floresta = new Floresta();
-        floresta.simularCicloDiurno(10); // Simule o ciclo diurno por 10 dias
+        floresta.simularCicloDiurno(7); // Simule o ciclo diurno por 7 dias
     }
 }
 
@@ -33,7 +33,7 @@ class SerVivo {
 
     public void envelhecer() {
         idade++;
-        if (idade > 10) { // Exemplo de vida curta para fins de demonstração
+        if (idade > 7) { // Exemplo de vida curta para fins de demonstração
             vivo = false;
         }
     }
@@ -70,7 +70,7 @@ class Animal extends SerVivo {
     }
 
     public void reproduzir(Animal parceiro) {
-        if (getIdade() > 1 && parceiro.getIdade() > 1 && this.getSexo() != parceiro.getSexo() && this.getClass() == parceiro.getClass()) {
+        if (getIdade() > 2 && parceiro.getIdade() > 2 && this.getSexo() != parceiro.getSexo() && this.getClass() == parceiro.getClass()) {
             System.out.println(getNome() + " e " + parceiro.getNome() + " estão se reproduzindo.");
         }
     }
@@ -82,14 +82,14 @@ class Mamifero extends Animal {
     }
 }
 
-class Lobo extends Mamifero {
-    public Lobo(String nome, char sexo) {
+class Tigre extends Mamifero {
+    public Tigre(String nome, char sexo) {
         super(nome, sexo);
     }
 }
 
-class Coelho extends Mamifero {
-    public Coelho(String nome, char sexo) {
+class Urso extends Mamifero {
+    public Urso(String nome, char sexo) {
         super(nome, sexo);
     }
 }
@@ -102,6 +102,12 @@ class Arvore extends Planta {
 
 class Arbusto extends Planta {
     public Arbusto(String nome) {
+        super(nome);
+    }
+}
+
+class Girassol extends Planta {
+    public Girassol(String nome) {
         super(nome);
     }
 }
@@ -124,12 +130,13 @@ class Floresta {
 
     public Floresta() {
         seresVivos = new ArrayList<>();
-        seresVivos.add(new Lobo("Lobo Alfa", 'M'));
-        seresVivos.add(new Lobo("Loba Beta", 'F'));
-        seresVivos.add(new Coelho("Coelho 1", 'M'));
-        seresVivos.add(new Coelho("Coelha 2", 'F'));
+        seresVivos.add(new Tigre("Tigre Alfa", 'M'));
+        seresVivos.add(new Tigre("Tigresa Beta", 'F'));
+        seresVivos.add(new Urso("Urso Polar", 'M'));
+        seresVivos.add(new Urso("Ursa Polar", 'F'));
         seresVivos.add(new Arvore("Carvalho"));
         seresVivos.add(new Arbusto("Espinheiro"));
+        seresVivos.add(new Girassol("Girassol Amarelo"));
         clima = new Clima("Ensolarado");
     }
 
@@ -144,7 +151,7 @@ class Floresta {
                 if (serVivo instanceof Animal) {
                     Animal animal = (Animal) serVivo;
                     animal.comer();
-                    if (animal.estaVivo() && animal.getIdade() > 1) {
+                    if (animal.estaVivo() && animal.getIdade() > 2) {
                         for (SerVivo parceiro : seresVivos) {
                             if (parceiro instanceof Animal && parceiro.estaVivo()) {
                                 Animal outroAnimal = (Animal) parceiro;
@@ -169,7 +176,7 @@ class Floresta {
     private void atualizarClima() {
         Random random = new Random();
         int chanceChuva = random.nextInt(100);
-        if (chanceChuva < 20) {
+        if (chanceChuva < 25) {
             clima = new Clima("Chuvoso");
         } else {
             clima = new Clima("Ensolarado");
